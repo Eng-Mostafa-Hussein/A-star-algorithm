@@ -61,7 +61,7 @@
                     path[c][0]=current->x;
                     path[c][1]=current->y;
 
-                    cout<<path[c][0]<<"\t"<<path[c][1]<<endl;
+                    //cout<<path[c][0]<<"\t"<<path[c][1]<<endl;
                     current=current->parent;
                 }
 
@@ -115,7 +115,7 @@
                     newlink->y = y;
                     newlink->g = g;
                     newlink->h = h;
-                    newlink->parent=p;
+                    newlink->parent=NULL;
                     newlink->f=g+h;
                     newlink->next = NULL;
                     newlink->prev=NULL;
@@ -208,7 +208,7 @@
                 link* current = first;
                 while( current != NULL )
                 {
-                    cout<<current <<"\t"<<current->id<<"\t"<< current->f<<"\t" <<current->x <<"\t"<<current->y <<"\t"<<current->parent <<endl;
+                    cout << current->id<<"\t"<< current->f<<"\t" <<current->x <<"\t"<<current->y <<endl;
                     current = current->next;
                 }
             }
@@ -275,7 +275,7 @@
     int main()
     {
 
-        int startx=0 , starty=4 , goalx=5 , goaly=5;
+        int startx=0 , starty=0 , goalx=5 , goaly=5;
         int sizex=6;
         int sizey=6;
         int n_of_st=2;
@@ -289,12 +289,6 @@
         char path_letter[path[0][0]];
         path_convereter(path,path_letter);
         display(path,path_letter,startx,starty,goalx,goaly,staticop,dynamicop,sizex,sizey,n_of_st,n_of_dy);
-
-        for (int i = 1; i <=path[0][0] ; ++i) {
-
-            cout<<path[i][0]<<"\t"<<path[i][1]<<endl;
-
-        }
 
         return 0;
     }
@@ -318,10 +312,8 @@
         sethuristic(huristic,goalx,goaly,staticop,n_of_st);
 
         openlist.additem(0,huristic[startx][starty],startx,starty,NULL);
-        int c=1;
-        while (openlist.count>0 && !solved && c)
+        while (openlist.count>0 && !solved)
         {
-            //c--;
             openlist.arrange();
             link* node=openlist.get(1);
             openlist.remove(1);
@@ -346,11 +338,11 @@
                     openlist.additem(node->g+1,huristic[child[i][0]][child[i][1]],child[i][0],child[i][1],node);
             }
             closedlist.additem(node->g,node->h,node->x,node->y,node->parent);
-            cout <<"openlist \n";
+            /*cout <<"openlist \n";
             openlist.display();
 
             cout <<"closedlist \n";
-            closedlist.display();
+            closedlist.display();*/
         }
     openlist.getpath(path);
     }
